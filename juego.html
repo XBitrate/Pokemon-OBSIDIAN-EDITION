@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="uft-8" />
+        <title>POKEMON OBSIDIAN EDITION</title>
+        <link rel="stylesheet" href="./codigo/style.css">
+    </head>
+    <body>
+        
+        <section id="Selecionar-mascota">
+            <h1 class="titulo" id="Titulo"> Pokemon Obsidian edition </h1>
+
+            <h2 class="subtitulo"> Elija su Pokemon</h2>
+
+        <div id="contenedortarjetas" class="tarjetas">
+            
+        </div>
+
+            <button id="selecionar-pokemon">Seleccionar 👆</button>
+
+        </section>
+
+        <section id="Seleccionar-ataque">
+            <h1 class="titulo" id="Titulo"> Pokemon Obsidian edition</h1>
+
+            <h2 class="subtitulo"> Elija su Ataque:</h2>
+
+            <div id="contenedorataques"class="botonataque">
+               
+            </div>
+
+            <div id="mensajes">
+                    <p id="resultado">[Resultado del combate]</p>
+                <section id="reiniciar">
+                    <button id="boton-reiniciar">Reiniciar</button>
+                </section>    
+            </div>
+            
+            <div class="reglas">
+                <section>
+                    <h2>Reglas del juego Pokemon</h2>
+                    <p>Ataques: En caso de que 2 ataques sean iguales, el combate se considera un empate. </p>
+                    <p>♦El fuego gana al Planta.</p>
+                    <p>♦El agua gana al Fuego.</p>
+                    <p>♦El planta gana al Agua</p>
+                     
+                </section>
+            </div>
+
+            <div class="ataqueyvidas">
+                <div class="tarjetadevida">
+                    <span id="vidasjugador">0</span> 
+                    <p id="pokemon-elegido">elegido</p>
+                    <div id="ataque-de-jugador"></div>
+                </div>
+
+                <div class="tarjetadevida">
+                    <span id="vidasenemigo">0</span>
+                    <p id="pokemon-enemigo"></p>
+                    <div id="ataque-de-pc"></div>
+                </div>
+            </div>
+           
+        
+        </section>
+        <script src="codigo/codigo.js"></script>
+    </body>
+</html>

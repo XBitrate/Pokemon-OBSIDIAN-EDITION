@@ -1,0 +1,201 @@
+/*Area principal*/
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&family=Kanit:wght@500&display=swap');body{
+    
+    background-color: #22A699;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+
+.titulo {
+    color: whitesmoke;
+    font-size: 32px;
+    font-family: 'Kanit', sans-serif;
+}
+
+.subtitulo {
+    color: white;
+    font-size: 24px;
+}
+
+/*Seleccionar-pokemon*/
+
+#Selecionar-mascota {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.tarjetas {
+    display: flex;
+    gap: 10px;
+}
+
+.labeldepokemon {
+    width: 195px;
+    height: 100px;
+    background-color: #F2BE22;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+input {
+
+    display: none;
+}
+
+input:checked + label{
+    width: 35vh;
+    height: 16vh;
+    border-radius: 50%;
+    background: #F24C3D;
+    color: black
+}
+
+.labeldepokemon img {
+    width: 95px;
+}
+
+#selecionar-pokemon {
+    height: 35px;
+    background-color: rgb(19, 162, 228);
+    margin: 30px;
+    width: 695px;
+    border-radius: 20px;
+    border: 3px solid aqua;
+    color: white;
+    font-family: 'Josefin Sans', sans-serif;
+    cursor: pointer;
+}
+
+/*Seleccionar-ataque*/
+
+#Seleccionar-ataque {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+ 
+}
+
+.ataque-elemental {
+    background-color: rgb(19, 162, 228);
+    border-radius: 20px;
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-color: aqua;
+    width: 130px;
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#mensajes {
+    width: 250px;
+    background-color: #F24C3D;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+/*Reiniciar*/
+
+#boton-reiniciar {
+    background-color: rgb(19, 162, 228);
+    border-radius: 20px;
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-color: aqua;
+    width: 130px;
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+/*Información de combate*/
+
+.ataqueyvidas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10rem;
+    padding: 2rem;
+}
+
+.tarjetadevida {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: aqua;
+    backdrop-filter: blur(70px);
+    border: var(--border-blur);
+    box-shadow: var(--box-shadow);
+    border-radius: 30px;
+    padding: 2rem;
+    width: 6rem;
+    height: 30rem;
+    color: firebrick;
+}
+
+#vidasjugador, #vidasenemigo {
+    font-size: 4rem;
+}
+
+.ataquedeljugador, .ataquedelenemigo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.reglas {
+    color: white;
+    background-color: #F2BE22;
+    border-radius: 30px;
+    border: solid crimson;
+    padding: 25px;
+}
+
+/*Compatibilidad con celular*/
+
+@media (max-width: 360px) {
+    .tarjetas {
+        flex-direction: column;
+    }
+    .botonataque {
+        display:flex;
+        flex-direction: column;
+        margin: 10px;
+    }
+    #selecionar-pokemon {
+        width: 300px;
+    }
+    .titulo {
+        width: 300px;
+    }
+    .reglas {
+        width: 290px;
+        font-size: 18px;
+        padding: 15px;
+    }
+    .tarjetadevida {
+        width: 90px;
+        padding: 1rem;
+    }
+    .ataqueyvidas {
+        gap: 3rem;
+    }
+    .ataque-elemental {
+        margin: 5px;
+    }
+}
