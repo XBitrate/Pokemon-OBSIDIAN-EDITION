@@ -21,6 +21,18 @@
 
         </section>
 
+        <section id="ver-mapa">
+            <h1 class="titulo">Recorre el mapa con tu pokemon</h1>
+            <canvas id="mapa"></canvas>
+            
+            <div>
+                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="right()">Derecha</button>
+                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="left()">Izquierda</button>
+                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="up()">Arriba</button>
+                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="down()">Abajo</button>
+            </div>
+        </section>
+
         <section id="Seleccionar-ataque">
             <h1 class="titulo" id="Titulo"> Pokemon Obsidian edition</h1>
 
@@ -31,7 +43,7 @@
             </div>
 
             <div id="mensajes">
-                    <p id="resultado">[Resultado del combate]</p>
+                    <p id="resultado">[Resultado final del juego]</p>
                 <section id="reiniciar">
                     <button id="boton-reiniciar">Reiniciar</button>
                 </section>    

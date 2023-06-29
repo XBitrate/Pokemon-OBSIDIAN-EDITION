@@ -20,6 +20,9 @@ const spanvidasenemigo = document.getElementById("vidasenemigo")
 const contenedortarjetas = document.getElementById("contenedortarjetas")
 const contenedorataques = document.getElementById("contenedorataques")
 
+const sectionmapa = document.getElementById("ver-mapa")
+const canvas = document.getElementById("mapa")
+
 let pokemones = []
 let ataquejugador = []
 let ataquepc = []
@@ -40,6 +43,8 @@ let victoriasjugador = 0
 let victoriaspc = 0
 let vidaspokemonjugador = 3
 let vidaspokemonenemigo = 3
+let lienzo = mapa.getContext("2d")
+let intervalo
 
 class Pokemon {
     constructor(nombre, foto, vida,) {
@@ -47,6 +52,14 @@ class Pokemon {
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.x = 20
+        this.y = 30
+        this.ancho = 80
+        this.alto = 80
+        this.mapafoto = new Image()
+        this.mapafoto.src = foto
+        this.velocidadX = 0
+        this.velocidadY = 0
     }
 }
 
@@ -85,6 +98,7 @@ pokemones.push(floracorn, pyrolynx, aquanix)
 //Iniciar juego
 function startgame() {
     sectionseleccionarataque.style.display = "none"
+    sectionmapa.style.display = "none"
 
     pokemones.forEach((pokemones) => {
         opcionpokemon = `
@@ -108,7 +122,12 @@ function startgame() {
 
 //seleccionar Pokemon(jugador)
 function seleccionarPokemon() {
-    sectionseleccionarataque.style.display = "flex"
+   // sectionseleccionarataque.style.display = "flex"
+
+    sectionmapa.style.display = "flex"
+    intervalo = setInterval(pintarpokemon, 50)
+
+
     sectionseleccionarpokemon.style.display = "none"
     if (inputFloracorn.checked) {
         spanPokemonElegido.innerHTML = "Jugador: " + inputFloracorn.id
@@ -297,6 +316,41 @@ function mensajefinal(resultadofinal) {
 
 function reiniciarjuego() {
     location.reload()
+}
+
+function pintarpokemon() {
+    floracorn.x = floracorn.x + floracorn.velocidadX
+    floracorn.y = floracorn.y + floracorn.velocidadY 
+    lienzo.clearRect(0, 0 , mapa.width, mapa.height)
+    lienzo.drawImage(
+        floracorn.mapafoto,
+        floracorn.x,
+        floracorn.y,
+        floracorn.ancho,
+        floracorn.alto,
+    )
+    
+}
+
+function right() {
+    floracorn.velocidadX = 5
+}
+
+function left() {
+    floracorn.velocidadX = -5
+}
+
+function up() {
+    floracorn.velocidadY = -5
+}
+
+function down() {
+    floracorn.velocidadY = 5
+}
+
+function detenermovimiento() {
+    floracorn.velocidadX = 0
+    floracorn.velocidadY = 0
 }
 
 window.addEventListener("load", startgame) 
