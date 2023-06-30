@@ -31,6 +31,7 @@ let inputFloracorn
 let inputPyrolynx
 let inputAquanix
 let pokemonjugador
+let pokemonobjetomapa
 let ataquespokemon
 let ataquespokemonenemigo
 let botonfuego 
@@ -45,29 +46,48 @@ let vidaspokemonjugador = 3
 let vidaspokemonenemigo = 3
 let lienzo = mapa.getContext("2d")
 let intervalo
+let backgroundmapa = new Image()
+backgroundmapa.src = "./assets/mapa.png"
 
 class Pokemon {
-    constructor(nombre, foto, vida,) {
+    constructor(nombre, foto, vida, fotomapa, x = 10, y = 10) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = 20
-        this.y = 30
-        this.ancho = 80
-        this.alto = 80
+        this.x = aleatorio(0,280)
+        this.y = aleatorio(0,220)
+        this.ancho = 40
+        this.alto = 40
         this.mapafoto = new Image()
-        this.mapafoto.src = foto
+        this.mapafoto.src = fotomapa
         this.velocidadX = 0
         this.velocidadY = 0
     }
+
+    pintarpokemon() {
+        lienzo.drawImage(
+            this.mapafoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto,
+        )
+    }
+
 }
 
-let floracorn = new Pokemon("Floracorn", "./assets/pokemon1.png", 3)
+let floracorn = new Pokemon("Floracorn", "./assets/pokemon1.png", 5 , "./assets/pokemon1cara.png")
 
-let pyrolynx = new Pokemon("Pyrolynx", "./assets/pokemon2.png", 3)
+let pyrolynx = new Pokemon("Pyrolynx", "./assets/pokemon2.png", 5, "./assets/pokemon2cara.png")
 
-let aquanix = new Pokemon("Aquanix", "./assets/pokemon3.png", 3)
+let aquanix = new Pokemon("Aquanix", "./assets/pokemon3.png", 5, "./assets/pokemon3cara.png")
+
+let floracornpc = new Pokemon("Floracorn", "./assets/pokemon1.png", 5 , "./assets/pokemon1cara.png")
+
+let pyrolynxpc = new Pokemon("Pyrolynx", "./assets/pokemon2.png", 5, "./assets/pokemon2cara.png")
+
+let aquanixpc = new Pokemon("Aquanix", "./assets/pokemon3.png", 5, "./assets/pokemon3cara.png")
 
 floracorn.ataques.push(
     { nombre: "🌱", id: "boton-planta" },
@@ -124,10 +144,6 @@ function startgame() {
 function seleccionarPokemon() {
    // sectionseleccionarataque.style.display = "flex"
 
-    sectionmapa.style.display = "flex"
-    intervalo = setInterval(pintarpokemon, 50)
-
-
     sectionseleccionarpokemon.style.display = "none"
     if (inputFloracorn.checked) {
         spanPokemonElegido.innerHTML = "Jugador: " + inputFloracorn.id
@@ -149,6 +165,8 @@ function seleccionarPokemon() {
         seleccionarpokemonpc()
     }
 
+    iniciarmapa()
+    sectionmapa.style.display = "flex"
 }
 
 function extraerataques() {
@@ -318,39 +336,82 @@ function reiniciarjuego() {
     location.reload()
 }
 
-function pintarpokemon() {
-    floracorn.x = floracorn.x + floracorn.velocidadX
-    floracorn.y = floracorn.y + floracorn.velocidadY 
+function pintarcanvas() {
+    
+    pokemonobjetomapa.x = pokemonobjetomapa.x + pokemonobjetomapa.velocidadX
+    pokemonobjetomapa.y = pokemonobjetomapa.y + pokemonobjetomapa.velocidadY 
     lienzo.clearRect(0, 0 , mapa.width, mapa.height)
     lienzo.drawImage(
-        floracorn.mapafoto,
-        floracorn.x,
-        floracorn.y,
-        floracorn.ancho,
-        floracorn.alto,
+        backgroundmapa,
+        0,
+        0,
+        mapa.width,
+        mapa.height,
     )
+    pokemonobjetomapa.pintarpokemon()
+    floracornpc.pintarpokemon()
+    pyrolynxpc.pintarpokemon()
+    aquanixpc.pintarpokemon()
     
 }
 
 function right() {
-    floracorn.velocidadX = 5
+    pokemonobjetomapa.velocidadX = 5
 }
 
 function left() {
-    floracorn.velocidadX = -5
+    pokemonobjetomapa.velocidadX = -5
 }
 
 function up() {
-    floracorn.velocidadY = -5
+    
+    pokemonobjetomapa.velocidadY = -5
 }
 
 function down() {
-    floracorn.velocidadY = 5
+    pokemonobjetomapa.velocidadY = 5
 }
 
 function detenermovimiento() {
-    floracorn.velocidadX = 0
-    floracorn.velocidadY = 0
+    pokemonobjetomapa.velocidadX = 0
+    pokemonobjetomapa.velocidadY = 0
+}
+
+function sepresionounatecla (event) {
+    switch (event.key) {
+        case "ArrowUp":
+            up()
+            break
+        case "ArrowDown":
+            down()
+            break
+        case "ArrowLeft":
+            left()
+            break
+        case "ArrowRight":
+            right()
+            break
+        default:
+            break;
+    }
+}
+
+function iniciarmapa() {
+    mapa.width = 320
+    mapa.height = 240
+    pokemonobjetomapa = obtenerpokemon(pokemonjugador)
+    intervalo = setInterval(pintarcanvas, 50)
+
+    window.addEventListener("keydown", sepresionounatecla)
+    window.addEventListener("keyup", detenermovimiento)
+}
+
+function obtenerpokemon() {
+    for (let i = 0; i < pokemones.length; i++) {
+        if (pokemonjugador == pokemones[i].nombre) {
+            return pokemones[i]
+        } 
+    }
 }
 
 window.addEventListener("load", startgame) 
