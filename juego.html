@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="uft-8" />
         <title>POKEMON OBSIDIAN EDITION</title>
@@ -22,14 +23,18 @@
         </section>
 
         <section id="ver-mapa">
-            <h1 class="titulo">Recorre el mapa con tu pokemon</h1>
+            <h2 class="subtitulo">Recorre el mapa con tu pokemon</h2>
             <canvas id="mapa"></canvas>
             
             <div>
-                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="right()">Derecha</button>
-                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="left()">Izquierda</button>
-                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="up()">Arriba</button>
-                <button onmouseup="detenermovimiento()" id="movebuttons" onmousedown="down()">Abajo</button>
+                <button ontouchstart="up()" onmouseup="detenermovimiento()" id="movebuttons" id="up" onmouseout="detenermovimiento()" onmousedown="up()">Arriba</button>
+                <div>
+                <button onmouseup="detenermovimiento()" id="movebuttons" id="left" onmouseout="detenermovimiento()" ontouchstart="left()" onmousedown="left()">Izquierda</button>
+                
+                <button onmouseup="detenermovimiento()" id="movebuttons" id="down" onmouseout="detenermovimiento()" ontouchstart="down()" onmousedown="down()">Abajo</button>
+
+                <button onmouseup="detenermovimiento()" id="movebuttons" id="right" onmouseout="detenermovimiento()"   ontouchstart="right()" onmousedown="right()">Derecha</button>
+                </div>
             </div>
         </section>
 

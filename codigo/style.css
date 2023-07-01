@@ -177,19 +177,21 @@ input:checked + label{
     margin: 1rem;
 }
 
-#movebuttons {
-    display: flex;
+#movebuttons{
+    display:flex ;
     background-color: #0D49A5;
     color: white;
     cursor: pointer;
-    width: 100px;
-    height: 30px;
-    margin: 1rem;
+    width: 80px;
+    height: 40px;
+    margin: 10px;
+    border-radius: 20px;
+    border: 3px solid aqua;
     justify-content: center;
     align-items: center;
-    border-radius: 30px;
-    border: 3px solid aqua;
 }
+
+
 
 /*Compatibilidad con celular*/
 
@@ -203,10 +205,10 @@ input:checked + label{
         margin: 10px;
     }
     #selecionar-pokemon {
-        width: 300px;
+        width: 230px;
     }
     .titulo {
-        width: 300px;
+        width: 250px;
     }
     .reglas {
         width: 290px;

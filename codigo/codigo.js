@@ -48,17 +48,29 @@ let lienzo = mapa.getContext("2d")
 let intervalo
 let backgroundmapa = new Image()
 backgroundmapa.src = "./assets/mapa.png"
+let alturabuscada
+let anchodelmapa =window.innerWidth - 20
+const anchomax = 350
+
+if(anchodelmapa > anchomax) {
+    anchodelmapa = anchomax - 30
+}
+
+alturabuscada = anchodelmapa * 600 / 800
+
+mapa.width = anchodelmapa
+mapa.height = alturabuscada
 
 class Pokemon {
-    constructor(nombre, foto, vida, fotomapa, x = 10, y = 10) {
+    constructor(nombre, foto, vida, fotomapa) {
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = aleatorio(0,280)
-        this.y = aleatorio(0,220)
         this.ancho = 40
         this.alto = 40
+        this.x = aleatorio(0, mapa.width - this.ancho)
+        this.y = aleatorio(0, mapa.height - this.alto)
         this.mapafoto = new Image()
         this.mapafoto.src = fotomapa
         this.velocidadX = 0
@@ -113,6 +125,30 @@ aquanix.ataques.push(
     { nombre: "🌱", id: "boton-planta" },
 )
 
+floracornpc.ataques.push(
+    { nombre: "🌱", id: "boton-planta" },
+    { nombre: "🌱", id: "boton-planta" },
+    { nombre: "🌱", id: "boton-planta" },
+    { nombre: "🔥", id: "boton-fuego" },
+    { nombre: "💧", id: "boton-agua" },
+)
+
+pyrolynxpc.ataques.push(
+    { nombre: "🔥", id: "botonfuego" },
+    { nombre: "🔥", id: "boton-fuego" },
+    { nombre: "🔥", id: "boton-fuego" },
+    { nombre: "💧", id: "boton-agua" },
+    { nombre: "🌱", id: "boton-planta" },
+)
+
+aquanixpc.ataques.push(
+    { nombre: "💧", id: "boton-agua" },
+    { nombre: "💧", id: "boton-agua" },
+    { nombre: "💧", id: "boton-agua" },
+    { nombre: "🔥", id: "boton-fuego" },
+    { nombre: "🌱", id: "boton-planta" },
+)
+
 pokemones.push(floracorn, pyrolynx, aquanix)
 
 //Iniciar juego
@@ -142,27 +178,22 @@ function startgame() {
 
 //seleccionar Pokemon(jugador)
 function seleccionarPokemon() {
-   // sectionseleccionarataque.style.display = "flex"
 
     sectionseleccionarpokemon.style.display = "none"
     if (inputFloracorn.checked) {
         spanPokemonElegido.innerHTML = "Jugador: " + inputFloracorn.id
         pokemonjugador = inputFloracorn.id
         extraerataques(pokemonjugador)
-        seleccionarpokemonpc()
     } else if (inputPyrolynx.checked) {
         spanPokemonElegido.innerHTML = "Jugador: " + inputPyrolynx.id
         pokemonjugador = inputPyrolynx.id
         extraerataques(pokemonjugador)
-        seleccionarpokemonpc()
     } else if (inputAquanix.checked) {
         spanPokemonElegido.innerHTML = "Jugador: " + inputAquanix.id
         pokemonjugador = inputAquanix.id
         extraerataques(pokemonjugador)
-        seleccionarpokemonpc()
     } else {alert("por favor recarga la página y selecciona algo")
         extraerataques(pokemonjugador)
-        seleccionarpokemonpc()
     }
 
     iniciarmapa()
@@ -198,17 +229,14 @@ function secuenciaAtaque() {
         boton.addEventListener("click", (e) => {
             if (e.target.textContent === "🔥") {
                 ataquejugador.push("FUEGO")
-                console.log(ataquejugador)
                 boton.style.background = "#112f58"
                 boton.disabled=true
             } else if (e.target.textContent === "💧") {
                 ataquejugador.push("AGUA")
-                console.log(ataquejugador)
                 boton.style.background = "#112f58"
                 boton.disabled=true
             } else {
                 ataquejugador.push("PLANTA")
-                console.log(ataquejugador)
                 boton.style.background = "#112f58"
                 boton.disabled=true
             }
@@ -218,10 +246,9 @@ function secuenciaAtaque() {
     
 }
 //seleccionar Pokemon (pc)
-function seleccionarpokemonpc() {
-    let pokemonaleatorio = aleatorio(0, pokemones.length - 1)
-    spanPokemonPc.innerHTML = "Enemigo: " + pokemones[pokemonaleatorio].nombre
-    ataquespokemonenemigo = pokemones[pokemonaleatorio].ataques
+function seleccionarpokemonpc(enemigo) {
+    spanPokemonPc.innerHTML = "Enemigo: " + enemigo.nombre
+    ataquespokemonenemigo = enemigo.ataques
     secuenciaAtaque()
 }
 
@@ -239,7 +266,6 @@ function ataqueenemigo() {
     } else {
         ataquepc.push("PLANTA")
     }
-    console.log(ataquepc)
     iniciarcombate()
 }
 
@@ -322,7 +348,7 @@ function final() {
         alert("Final del combate. Tuviste " + victoriasjugador + " victoria/s, y tu enemigo ha quedado con " + victoriaspc + " victoria/s, eso significa Ganaste el juego :)")
     mensajefinal("Has ganado el juego :)")
     } else {
-        alert("Final del combate. Tuviste " + victoriasjugador + " victoria/s, y tu enemigo ha quedado con " + victoriaspc + " victoria/s, eso significa Perdite el juego :(")
+        alert("Final del combate. Tuviste " + victoriasjugador + " victoria/s, y tu enemigo ha quedado con " + victoriaspc + " victoria/s, eso significa Perdiste el juego :(")
         mensajefinal("Has perdido el juego :)")
     }
 }
@@ -353,6 +379,11 @@ function pintarcanvas() {
     pyrolynxpc.pintarpokemon()
     aquanixpc.pintarpokemon()
     
+    if(pokemonobjetomapa.velocidadX !== 0 || pokemonobjetomapa.velocidadY !== 0) {
+        colisiones(floracornpc)
+        colisiones(pyrolynxpc)
+        colisiones(aquanixpc)
+    }
 }
 
 function right() {
@@ -397,8 +428,6 @@ function sepresionounatecla (event) {
 }
 
 function iniciarmapa() {
-    mapa.width = 320
-    mapa.height = 240
     pokemonobjetomapa = obtenerpokemon(pokemonjugador)
     intervalo = setInterval(pintarcanvas, 50)
 
@@ -412,6 +441,34 @@ function obtenerpokemon() {
             return pokemones[i]
         } 
     }
+}
+
+function colisiones(enemigo) {
+    const arribapokemonpc = enemigo.y
+    const abajopokemonpc = enemigo.y + enemigo.alto
+    const derechapokemonpc = enemigo.x + enemigo.ancho
+    const izquierdapokemonpc = enemigo.x
+
+    const arribapokemon = pokemonobjetomapa.y
+    const abajopokemon = pokemonobjetomapa.y + pokemonobjetomapa.alto
+    const derechapokemon = pokemonobjetomapa.x + pokemonobjetomapa.ancho
+    const izquierdapokemon = pokemonobjetomapa.x
+
+    if(
+        abajopokemon < arribapokemonpc ||
+        arribapokemon > abajopokemonpc ||
+        derechapokemon < izquierdapokemonpc ||
+        izquierdapokemon > derechapokemonpc
+    ) {
+        return;
+    }
+    detenermovimiento()
+    clearInterval(intervalo)
+    alert("Chocaste con " + enemigo.nombre + ". Hora del combate!!")
+    sectionseleccionarataque.style.display = "flex"
+    sectionmapa.style.display = "none"
+    seleccionarpokemonpc(enemigo)
+
 }
 
 window.addEventListener("load", startgame) 
