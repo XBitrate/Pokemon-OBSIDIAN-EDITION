@@ -174,6 +174,21 @@ function startgame() {
   
     botonreiniciar.addEventListener("click", reiniciarjuego)
     sectionreiniciar.style.display = "none"
+
+    unirsealjuego()
+}
+
+function unirsealjuego() {
+    fetch("http://localhost:8080/unirse")
+        .then(function (res){
+            if(res.ok) {
+                res.text()
+                    .then(function (respuesta) {
+                        console.log(respuesta)
+                    })
+            }
+        })
+
 }
 
 //seleccionar Pokemon(jugador)
